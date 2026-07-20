@@ -2,7 +2,6 @@
   "name": "lec06",
   "version": "1.0.0",
   "description": "",
-  "packageManager": "pnpm@11.10.0",
   "main": "index.js",
   "scripts": {
     "dev": "nodemon",
@@ -12,6 +11,13 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "devEngines": {
+    "packageManager": {
+      "name": "pnpm",
+      "version": "^11.13.0",
+      "onFail": "download"
+    }
+  },
   "type": "module",
   "dependencies": {
     "cors": "^2.8.6",

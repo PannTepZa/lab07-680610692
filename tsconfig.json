@@ -7,8 +7,6 @@
     "types": ["node"],
     "rootDir": ".",
     "outDir": "./dist",
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
     "paths": {
       "@src/*": ["./src/*"],
       "@db/*": ["./src/db/*"],
