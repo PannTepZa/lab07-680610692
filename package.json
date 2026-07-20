@@ -2,6 +2,7 @@
   "name": "lec06",
   "version": "1.0.0",
   "description": "",
+  "packageManager": "pnpm@11.10.0",
   "main": "index.js",
   "scripts": {
     "dev": "nodemon",
