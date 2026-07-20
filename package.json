@@ -1,6 +1,7 @@
 {
   "name": "lec06",
   "version": "1.0.0",
+  "packageManager": "pnpm@11.13.1",
   "description": "",
   "main": "index.js",
   "scripts": {
