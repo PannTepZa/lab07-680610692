@@ -25,24 +25,52 @@ app.get("/", (req: Request, res: Response) => {
 });
 
 // GET /students
-// get students (by program)
+// get students (by program and studentId)
 app.get("/students", (req: Request, res: Response) => {
   try {
+    const id = req.query.studentId;
     const program = req.query.program;
 
-    if (program) {
-      let filtered_students = students.filter(
-        (student) => student.program === program
-      );
-      return res.json({
-        success: true,
-        data: filtered_students,
-      });
-    } else {
-      return res.json({
-        success: true,
-        count: students.length,
-        data: students,
+    if (id || program) {
+      let filtered_students = students;
+
+      if (id) {
+        filtered_students = filtered_students.filter(
+          (student) => student.studentId === id
+        );
+      }
+
+      if (program) {
+        filtered_students = filtered_students.filter(
+          (student) => student.program === program
+        );
+      }
+
+      if (filtered_students.length === 0) {
+        return res.status(200).json({
+          ok: true,
+          students: filtered_students,
+        });
+      }
+
+      return res.status(200).json({
+          ok: true,
+          students: filtered_students.map(student => ({
+                studentId: student.studentId,
+                firstName: student.firstName,
+                lastName: student.lastName,
+                program: student.program,
+          })),
+        });
+    }else {
+      return res.status(200).json({
+        ok : true,
+        students: students.map(student => ({
+                studentId: student.studentId,
+                firstName: student.firstName,
+                lastName: student.lastName,
+                program: student.program,
+          })),
       });
     }
   } catch (err) {
@@ -150,12 +178,47 @@ app.put("/students", (req: Request, res: Response) => {
 
 // DELETE /students, body = {studentId}
 app.delete("/students", (req: Request, res: Response) => {
-  res.json({
-    message: "Implement this!"
-  })
+   try{
+    const { studentId } = req.body as Student;
+    const index = students.findIndex((s) => s.studentId === studentId);
+    
+    if (studentId.length != 9){
+      return res.status(400).json({
+      ok: false,
+      message: "Student ID must contain 9 characters",
+      });
+    }
+
+    if (index == -1){
+      return res.status(404).json({
+      ok: false,
+      message: "Student ID does not exist",
+      });
+    }
+
+    students.splice(index, 1);
+
+    return res.status(200).json({
+      ok: true,
+      message: `Student Id ${studentId}`,
+      });
+
+   }catch(err){
+     return res.status(404).json({
+      ok: false,
+      message: "Student ID does not exist",
+    });
+   }
 });
 
 // GET /api/me
+app.get("/me", (req: Request, res: Response) =>{
+  return res.status(200).json({
+      ok: true,
+      fullName: "Pann Kitina",
+      studentId : "680610692"
+      });
+});
 
 app.listen(port, async () => {
   console.log(`🚀 Server running on http://localhost:${port}`);
