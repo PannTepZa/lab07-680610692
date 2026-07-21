@@ -10,7 +10,7 @@ import {
   zStudentDeleteBody,
   zStudentPostBody,
   zStudentPutBody,
-} from "@libs/studentValidator.js";
+} from "./libs/studentValidator.js";
 
 const app = express();
 const port = process.env.PORT || 3000;
