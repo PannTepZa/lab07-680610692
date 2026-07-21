@@ -6,7 +6,7 @@
 
 ชื่อ-สกุล : ปัณณ์ กิตินา
 
-Vercel URL :
+Vercel URL : https://lab07-680610692-eight.vercel.app/
 
 ---
 
