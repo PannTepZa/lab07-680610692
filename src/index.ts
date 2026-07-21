@@ -179,15 +179,16 @@ app.put("/students", (req: Request, res: Response) => {
 // DELETE /students, body = {studentId}
 app.delete("/students", (req: Request, res: Response) => {
    try{
-    const { studentId } = req.body as Student;
-    const index = students.findIndex((s) => s.studentId === studentId);
-    
-    if (studentId.length != 9){
+    const result = zStudentDeleteBody.safeParse(req.body);
+    if (!result.success) {
       return res.status(400).json({
-      ok: false,
-      message: "Student ID must contain 9 characters",
+        ok: false,
+        message: "Student ID must contain 9 characters",
       });
     }
+    const { studentId } = result.data;
+    const index = students.findIndex((s) => s.studentId === studentId);
+  
 
     if (index == -1){
       return res.status(404).json({
@@ -200,7 +201,7 @@ app.delete("/students", (req: Request, res: Response) => {
 
     return res.status(200).json({
       ok: true,
-      message: `Student Id ${studentId}`,
+      message: `Student Id ${studentId} has been deleted`,
       });
 
    }catch(err){
