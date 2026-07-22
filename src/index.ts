@@ -26,7 +26,7 @@ app.get("/", (req: Request, res: Response) => {
 
 // GET /students
 // get students (by program and studentId)
-app.get("/students", (req: Request, res: Response) => {
+app.get("/api/students", (req: Request, res: Response) => {
   try {
     const id = req.query.studentId;
     const program = req.query.program;
@@ -177,7 +177,7 @@ app.put("/students", (req: Request, res: Response) => {
 });
 
 // DELETE /students, body = {studentId}
-app.delete("/students", (req: Request, res: Response) => {
+app.delete("/api/students", (req: Request, res: Response) => {
    try{
     const result = zStudentDeleteBody.safeParse(req.body);
     if (!result.success) {
@@ -213,7 +213,7 @@ app.delete("/students", (req: Request, res: Response) => {
 });
 
 // GET /api/me
-app.get("/me", (req: Request, res: Response) =>{
+app.get("/api/me", (req: Request, res: Response) =>{
   return res.status(200).json({
       ok: true,
       fullName: "Pann Kitina",
